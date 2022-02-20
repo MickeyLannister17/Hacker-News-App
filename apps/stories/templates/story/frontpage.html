@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="column">
+            <div class="column is-12">
+                <h1 class="title">Welcome To Nubia News</h1>
+            </div>
+        </div>
+    
+
+
+        <div class="column">
+            <div class="column is-12">
+                <table class="table is-stripped is full-width">
+                    <body>
+                        {% for story in story %}
+                            <tr>
+                                <td>{{ forloop.counter }}.</td>
+                                <td>
+                                    <a href="{{ story.url }}" target="_blank">{{ story.title }}</a>
+                                    <p>{{ story.number_of_votes }} votes by {{story.created_by.username}} {{ story.created_at|timesince }} ago |
+                                        {% if not story.created_by == request.user %}<a href="{% url 'vote' story.id %}">Vote</a>{% endif %}
+                                        <a href="{% url 'story' story.id %}">Discuss</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </body>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
